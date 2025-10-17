@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initialize Test Data - Hospital Management</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f9fafb;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+        button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-weight: 500;
+        }
+        button:hover {
+            background: #4338ca;
+        }
+        button.danger {
+            background: #dc2626;
+        }
+        button.danger:hover {
+            background: #b91c1c;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        .info {
+            background: #eff6ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3b82f6;
+        }
+        code {
+            background: #1f2937;
+            color: #10b981;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+        h3 {
+            color: #374151;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 Hospital Management System - Test Data</h1>
+
+        <div class="info">
+            <strong>📋 Instructions:</strong> Click the buttons below to initialize test data for your account.
+            Make sure you're logged in first!
+        </div>
+
+        <div class="section">
+            <h3>Current User</h3>
+            <p>Email: <code id="userEmail">Not logged in</code></p>
+            <p>Name: <code id="userName">Not logged in</code></p>
+            <p>Role: <code id="userRole">Not set</code></p>
+        </div>
+
+        <div class="section">
+            <h3>Initialize Test Data</h3>
+            <button onclick="initAllData()">✨ Initialize All Test Data</button>
+            <button onclick="initMedicalRecords()">📋 Add Medical Records</button>
+            <button onclick="initPrescriptions()">💊 Add Prescriptions</button>
+            <button onclick="initAppointments()">📅 Add Appointments</button>
+            <button class="danger" onclick="clearAllData()">🗑️ Clear All Data</button>
+        </div>
+
+        <div id="status" class="status"></div>
+
+        <div class="section">
+            <h3>📊 Current Data Summary</h3>
+            <p>Medical Records: <code id="recordCount">0</code></p>
+            <p>Prescriptions: <code id="prescriptionCount">0</code></p>
+            <p>Appointments: <code id="appointmentCount">0</code></p>
+            <p>Patients: <code id="patientCount">0</code></p>
+        </div>
+
+        <div class="info" style="margin-top: 30px;">
+            <strong>🔄 After adding data:</strong> Go back to your dashboard and refresh the page to see the changes.
+            <br><br>
+            <a href="/dashboard/patient" style="color: #4f46e5; text-decoration: none; font-weight: 500;">
+                → Go to Patient Dashboard
+            </a>
+            <br>
+            <a href="/dashboard/doctor" style="color: #4f46e5; text-decoration: none; font-weight: 500;">
+                → Go to Doctor Dashboard
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function showStatus(message, isError = false) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = 'status ' + (isError ? 'error' : 'success');
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 5000);
+        }
+
+        function updateUserInfo() {
+            const email = localStorage.getItem('userEmail') || 'Not logged in';
+            const name = localStorage.getItem('userName') || 'Not logged in';
+            const role = localStorage.getItem('userRole') || 'Not set';
+
+            document.getElementById('userEmail').textContent = email;
+            document.getElementById('userName').textContent = name;
+            document.getElementById('userRole').textContent = role;
+
+            return email !== 'Not logged in' ? email : null;
+        }
+
+        function updateDataSummary() {
+            const records = JSON.parse(localStorage.getItem('medicalRecords') || '[]');
+            const prescriptions = JSON.parse(localStorage.getItem('prescriptions') || '[]');
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+
+            document.getElementById('recordCount').textContent = records.length;
+            document.getElementById('prescriptionCount').textContent = prescriptions.length;
+            document.getElementById('appointmentCount').textContent = appointments.length;
+            document.getElementById('patientCount').textContent = patients.length;
+        }
+
+        function initMedicalRecords() {
+            const userEmail = updateUserInfo();
+            if (!userEmail) {
+                showStatus('❌ Please log in first!', true);
+                return;
+            }
+
+            const records = JSON.parse(localStorage.getItem('medicalRecords') || '[]');
+
+            const newRecords = [
+                {
+                    id: Date.now() + '_1',
+                    patientEmail: userEmail,
+                    date: '2025-01-15',
+                    event: 'Annual Check-up',
+                    doctor: 'Dr. Sarah Johnson',
+                    status: 'Completed',
+                    notes: 'Patient is in good health. All vitals normal. Continue current medication.',
+                    files: []
+                },
+                {
+                    id: Date.now() + '_2',
+                    patientEmail: userEmail,
+                    date: '2024-11-20',
+                    event: 'Blood Test',
+                    doctor: 'Dr. Sarah Johnson',
+                    status: 'Completed',
+                    notes: 'Blood work shows normal levels. Cholesterol slightly elevated.',
+                    files: []
+                },
+                {
+                    id: Date.now() + '_3',
+                    patientEmail: userEmail,
+                    date: '2024-09-10',
+                    event: 'Consultation',
+                    doctor: 'Dr. Michael Chen',
+                    status: 'Completed',
+                    notes: 'Discussed treatment plan. Patient responding well to medication.',
+                    files: []
+                }
+            ];
+
+            records.push(...newRecords);
+            localStorage.setItem('medicalRecords', JSON.stringify(records));
+            showStatus('✅ Medical records added successfully!');
+            updateDataSummary();
+        }
+
+        function initPrescriptions() {
+            const userEmail = updateUserInfo();
+            if (!userEmail) {
+                showStatus('❌ Please log in first!', true);
+                return;
+            }
+
+            const prescriptions = JSON.parse(localStorage.getItem('prescriptions') || '[]');
+            const userName = localStorage.getItem('userName');
+
+            const newPrescriptions = [
+                {
+                    id: Date.now() + '_1',
+                    patientEmail: userEmail,
+                    name: 'Aspirin',
+                    dosage: '81mg',
+                    frequency: 'Once daily',
+                    remaining: 30,
+                    prescribedBy: 'Dr. Sarah Johnson',
+                    prescribedDate: '2025-01-15'
+                },
+                {
+                    id: Date.now() + '_2',
+                    patientEmail: userEmail,
+                    name: 'Metformin',
+                    dosage: '500mg',
+                    frequency: 'Twice daily',
+                    remaining: 25,
+                    prescribedBy: 'Dr. Sarah Johnson',
+                    prescribedDate: '2025-01-10'
+                },
+                {
+                    id: Date.now() + '_3',
+                    patientEmail: userEmail,
+                    name: 'Lisinopril',
+                    dosage: '10mg',
+                    frequency: 'Once daily',
+                    remaining: 20,
+                    prescribedBy: 'Dr. Michael Chen',
+                    prescribedDate: '2025-01-05'
+                }
+            ];
+
+            prescriptions.push(...newPrescriptions);
+            localStorage.setItem('prescriptions', JSON.stringify(prescriptions));
+            showStatus('✅ Prescriptions added successfully!');
+            updateDataSummary();
+        }
+
+        function initAppointments() {
+            const userEmail = updateUserInfo();
+            const userName = localStorage.getItem('userName');
+            if (!userEmail) {
+                showStatus('❌ Please log in first!', true);
+                return;
+            }
+
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+
+            const today = new Date();
+            const nextWeek = new Date(today);
+            nextWeek.setDate(today.getDate() + 7);
+            const nextMonth = new Date(today);
+            nextMonth.setDate(today.getDate() + 30);
+
+            const newAppointments = [
+                {
+                    id: Date.now() + '_1',
+                    patientEmail: userEmail,
+                    patientName: userName,
+                    date: nextWeek.toISOString().split('T')[0],
+                    time: '10:00 AM',
+                    doctor: 'Dr. Sarah Johnson',
+                    type: 'Follow-up',
+                    status: 'scheduled'
+                },
+                {
+                    id: Date.now() + '_2',
+                    patientEmail: userEmail,
+                    patientName: userName,
+                    date: nextMonth.toISOString().split('T')[0],
+                    time: '02:30 PM',
+                    doctor: 'Dr. Michael Chen',
+                    type: 'Consultation',
+                    status: 'scheduled'
+                }
+            ];
+
+            appointments.push(...newAppointments);
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+            showStatus('✅ Appointments added successfully!');
+            updateDataSummary();
+        }
+
+        function initAllData() {
+            const userEmail = updateUserInfo();
+            if (!userEmail) {
+                showStatus('❌ Please log in first!', true);
+                return;
+            }
+
+            initMedicalRecords();
+            initPrescriptions();
+            initAppointments();
+
+            showStatus('✨ All test data initialized successfully! Refresh your dashboard to see changes.');
+            updateDataSummary();
+        }
+
+        function clearAllData() {
+            if (confirm('⚠️ Are you sure you want to delete ALL data? This cannot be undone!')) {
+                localStorage.removeItem('medicalRecords');
+                localStorage.removeItem('prescriptions');
+                localStorage.removeItem('appointments');
+                localStorage.removeItem('patients');
+
+                showStatus('🗑️ All data cleared successfully!');
+                updateDataSummary();
+            }
+        }
+
+        // Update on page load
+        window.onload = function() {
+            updateUserInfo();
+            updateDataSummary();
+        };
+    </script>
+</body>
+</html>

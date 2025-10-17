@@ -1,0 +1,421 @@
+.container {
+  min-height: 100vh;
+  background: #f9fafb;
+}
+
+.header {
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.headerContent {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.shieldIcon {
+  width: 32px;
+  height: 32px;
+  color: #4f46e5;
+}
+
+.userName {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111827;
+}
+
+.userRole {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.logoutButton {
+  padding: 0.5rem 1rem;
+  color: #6b7280;
+  background: transparent;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logoutButton:hover {
+  color: #111827;
+  background: #f9fafb;
+}
+
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: transform 0.2s;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.statContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.statValue {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #111827;
+  margin-top: 0.5rem;
+}
+
+.statIconBlue {
+  width: 48px;
+  height: 48px;
+  color: #3b82f6;
+}
+
+.statIconGreen {
+  width: 48px;
+  height: 48px;
+  color: #10b981;
+}
+
+.statIconYellow {
+  width: 48px;
+  height: 48px;
+  color: #f59e0b;
+}
+
+.statIconRed {
+  width: 48px;
+  height: 48px;
+  color: #ef4444;
+}
+
+.contentGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.titleIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  flex: 1;
+  max-width: 300px;
+}
+
+.searchIcon {
+  width: 18px;
+  height: 18px;
+  color: #9ca3af;
+  margin-right: 0.5rem;
+}
+
+.searchInput {
+  border: none;
+  background: transparent;
+  outline: none;
+  flex: 1;
+  font-size: 0.875rem;
+}
+
+.patientList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.patientCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.patientCard:hover {
+  border-color: #4f46e5;
+  background: #f9fafb;
+}
+
+.patientInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.patientAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.patientName {
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.patientDetails {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.patientMeta {
+  text-align: right;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+
+.stable {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.monitoring {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.lastVisit {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.appointmentList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.appointmentCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #eef2ff, #f0f9ff);
+  border-radius: 0.5rem;
+  border-left: 4px solid #4f46e5;
+}
+
+.appointmentTime {
+  font-weight: bold;
+  color: #4f46e5;
+  font-size: 0.875rem;
+  min-width: 80px;
+}
+
+.appointmentDetails {
+  flex: 1;
+}
+
+.appointmentPatient {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.appointmentType {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.alertList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.alertCard {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid;
+}
+
+.warning {
+  background: #fef3c7;
+  border-color: #fbbf24;
+}
+
+.success {
+  background: #d1fae5;
+  border-color: #34d399;
+}
+
+.info {
+  background: #dbeafe;
+  border-color: #60a5fa;
+}
+
+.alertIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.warning .alertIcon {
+  color: #d97706;
+}
+
+.success .alertIcon {
+  color: #059669;
+}
+
+.info .alertIcon {
+  color: #2563eb;
+}
+
+.alertContent {
+  flex: 1;
+}
+
+.alertMessage {
+  font-size: 0.875rem;
+  color: #111827;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.alertLocation {
+  font-size: 0.75rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.alertTime {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.actionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.actionButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #eef2ff, #f0f9ff);
+  border: 1px solid #e0e7ff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #4f46e5;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.actionButton:hover {
+  background: #e0e7ff;
+  transform: translateY(-2px);
+}
